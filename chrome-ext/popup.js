@@ -22,14 +22,9 @@ function click(e) {
 }
 
 function talk(e){
-    // console.log("talk");
-    chrome.tabs.getSelected(null, function(tab){
-        chrome.tabs.executeScript(tab.id, {code: "ajaxSend('what is the weather', ['msgInput',0]);"}, function(response) {
-            alert('test');
-        });
-    });
-    // chrome.tabs.executeScript(null,
-    //       {code:"ajaxSend('what is the weather', ['msgInput',0]);"});
+    chrome.tabs.executeScript({
+        code: 'location.href="javascript:ajaxSend(\'what is the weather\', [\'msgInput\',0]); void 0"'
+      });
 }
 function modify(e){
     console.log("modify");
@@ -37,14 +32,22 @@ function modify(e){
         {code:"ajaxSend('it is sunny',['modifyChat',onlychange]);"});
 }
 function like(e){
-    console.log("like");
-    chrome.tabs.executeScript(null,
-        {code:"ajaxSend(0,['Liked',0]);"});
+    chrome.tabs.query({currentWindow: true, active: true}, function (tab) {
+        chrome.tabs.update(tab.id, {url: "http://47.89.11.81/newsession/"});
+    });
     // ajaxSend(0,['Liked',0]);
 }
 function ruminate(e){
-    chrome.tabs.executeScript(null,
-        {code:"ajaxSend(0, ['Ruminate',0]);"});
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', chrome.extension.getURL('test.txt'), true);
+    xhr.onreadystatechange = function()
+    {
+        if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200)
+        {
+            document.getElementById("display").innerHTML = xhr.responseText;
+        }
+    };
+    xhr.send();
     // ajaxSend(0, ['Ruminate',0]);
 }
 
@@ -54,10 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
 //     divs[i].addEventListener('click', click);
 //   }
     document.getElementById('talk').addEventListener('click',talk);
-    // var modify = document.getElementById('modify');
-    // modify.addEventListener('click',modify);
-    // var like = document.getElementById('like');
-    // like.addEventListener('click',like);
-    // var ruminate = document.getElementById('ruminate');
-    // ruminate.addEventListener('click',ruminate);
+    document.getElementById('modify').addEventListener('click',modify);
+    document.getElementById('like').addEventListener('click',like);
+    document.getElementById('ruminate').addEventListener('click',ruminate);
 });
