@@ -1,0 +1,8 @@
+what is the weather?+++$+++it is sunny.
+do you like sunny day?+++$+++yes, I like sunny day very much!
+what kind of weather do you like?+++$+++I like sunny day.
+do you think sunny day is good?+++$+++yes, I like sunny day!
+do you like rain day?+++$+++no, I do not like rain day.
+what kind of weather you do not like?+++$+++I do not like rain day.
+what is your favorite weather?+++$+++I love sunny day!
+what is good temperature?+++$+++sunny day has good temperature.

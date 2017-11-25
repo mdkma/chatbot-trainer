@@ -1,26 +1,6 @@
-// Copyright (c) 2012 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
-function click(e) {
-//   chrome.tabs.executeScript(null,
-    // //   {code:"document.body.style.backgroundColor='" + e.target.id + "'"}
-    //   {code:"document.getElementById('login-button').click();"});
-    // // {code:" window.location.href = 'https://www38.polyu.edu.hk/eStudent/secure/my-subject-registration/subject-register-select-acad-year-sem.jsf';\
-    // //         var box1 = document.getElementById('mainForm:yearSemDropDown'); \
-    // //         box1.value = 1495;\
-    // //         document.getElementById('mainForm:nextButton').click();\
-    // //   "});
-
-    // chrome.tabs.executeScript(null,
-    //       {code:"window.location.href = 'https://www38.polyu.edu.hk/eStudent/secure/my-subject-registration/subject-register-select-acad-year-sem.jsf';"});
-    
-    chrome.tabs.executeScript({
-        file: 'simulate.js'
-    });  
-  window.close();
-}
-
+/*
+ *  INDIVIDUAL FUNCTIONS
+ */
 function talk(e){
     chrome.tabs.executeScript({
         code: 'location.href="javascript:ajaxSend(\'what is the weather\', [\'msgInput\',0]); void 0"'
@@ -57,6 +37,28 @@ function ruminate(e){
     // ajaxSend(0, ['Ruminate',0]);
 }
 
+/*
+ *  MAIN FLOW
+ */
+function getBotStatus() {
+    //You can play with your DOM here or check URL against your regex
+    return document.getElementById('botspecial').getAttribute('src');
+}
+
+function someFunction(a, b, callback) {
+    // Check whether can continue
+    chrome.tabs.executeScript({
+        code: '(' + getBotStatus + ')();'
+    }, (results) => {
+        //Here we have just the innerHTML and not DOM structure
+        displayMsg(results[0]);
+    });
+
+    // setTimeout(function () {
+    //     callback();
+    // },2000)
+}
+
 async function start(e){
     displayMsg(">>> START >>>");
     setTimeout(function () {
@@ -73,12 +75,23 @@ async function start(e){
             {
                 fileContent = xhr.responseText;
                 lines = fileContent.split('\n');
-                for (var i = 0; i < lines.length; i++){
-                    var tempResult = await trainThis(item, index);
-                }
-                // lines.forEach(function(item, index){
-                //     trainThis(item, index);
-                // });
+                // displayMsg(lines[0])
+                // for (var i = 0; i < lines.length; i++){
+                //     var tempResult = trainThis(lines[i]);
+                // }
+                // // lines.forEach(function(item, index){
+                // //     trainThis(item, index);
+                // // });
+                var thisIndex = 0;
+                asyncLoop(lines.length, function(loop) {
+                    someFunction(1, 2, function(result) {
+                        thisIndex =  loop.iteration();
+                        var reValue = trainThis(lines[thisIndex],thisIndex);
+                        // Okay, for cycle could continue
+                        loop.next();
+                    })},
+                    function(){console.log('cycle ended')}
+                );
             }
         };
         xhr.send();
@@ -86,33 +99,23 @@ async function start(e){
 }
 
 async function trainThis(item, index) {
-    alert("herer");
-    displayMsg(item);
+    // train a conversation
+    displayMsg(index+1);
+    [q,a] = item.split('>>>');
+    chrome.tabs.executeScript({
+        code: 'location.href="javascript:ajaxSend(\''+q+'\', [\'msgInput\',0]); void 0"'
+      });
     setTimeout(function(){
-        return 'yes'
+        chrome.tabs.executeScript({
+            code: 'location.href="javascript:ajaxSend(\''+a+'\',[\'modifyChat\',1]); void 0"'
+          });
+        return 'yes';
     }, 1000);
-    // return new Promise((resolve, reject) => {
-    //     asycronouseProcess(()=>{
-    //       resolve();
-    //     })
-    //   })
 }
 
-// EVENTS CONTROLLING
-
-document.addEventListener('DOMContentLoaded', function () {
-//   var divs = document.querySelectorAll('div');
-//   for (var i = 0; i < divs.length; i++) {
-//     divs[i].addEventListener('click', click);
-//   }
-    document.getElementById('start').addEventListener('click',start);
-    document.getElementById('talk').addEventListener('click',talk);
-    document.getElementById('modify').addEventListener('click',modify);
-    document.getElementById('like').addEventListener('click',like);
-    document.getElementById('ruminate').addEventListener('click',ruminate);
-});
-
-// UTILITIES FUNCTIONS
+/*
+ *  UTILITIES FUNCTIONS
+ */
 function displayMsg(msg){
     // Display current progress
     codetext = "document.getElementsByClassName('logo-lg')[0].innerHTML = \'"+msg+"\';"
@@ -121,18 +124,45 @@ function displayMsg(msg){
     });
 }
 
-function readFile(fileNumber){
-    // Read txt file
-    var fullName = fileNumber+'.txt';
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', chrome.extension.getURL(fullName), true);
-    xhr.onreadystatechange = function()
-    {
-        if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200)
-        {
-            return xhr.responseText;
+function asyncLoop(iterations, func, callback) {
+    var index = 0;
+    var done = false;
+    var loop = {
+        next: function() {
+            if (done) {
+                return;
+            }
+
+            if (index < iterations) {
+                index++;
+                func(loop);
+
+            } else {
+                done = true;
+                callback();
+            }
+        },
+
+        iteration: function() {
+            return index - 1;
+        },
+
+        break: function() {
+            done = true;
+            callback();
         }
     };
-    xhr.send();
-    // ajaxSend(0, ['Ruminate',0]);
+    loop.next();
+    return loop;
 }
+
+/*
+ *  EVENTS CONTROLLING
+ */
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('start').addEventListener('click',start);
+    document.getElementById('talk').addEventListener('click',talk);
+    document.getElementById('modify').addEventListener('click',modify);
+    document.getElementById('like').addEventListener('click',like);
+    document.getElementById('ruminate').addEventListener('click',ruminate);
+});
