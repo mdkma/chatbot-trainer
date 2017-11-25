@@ -40,65 +40,76 @@ function ruminate(e){
 /*
  *  MAIN FLOW
  */
-function getBotStatus() {
+function getBotStatus_script() {
     //You can play with your DOM here or check URL against your regex
     return document.getElementById('botspecial').getAttribute('src');
 }
 
+// export async function getBotStatus() {
+//     chrome.tabs.executeScript({
+//         code: '(' + getBotStatus_script + ')();'
+//     }, (results) => {
+//         //Here we have just the innerHTML and not DOM structure
+//         if (results[0] === '/static/data/bot/Special/blank.gif'){
+//             return 'empty';
+//         } else{
+//             return 'buzy';
+//         }
+//     });
+// }
+
 function someFunction(a, b, callback) {
     // Check whether can continue
-    chrome.tabs.executeScript({
-        code: '(' + getBotStatus + ')();'
-    }, (results) => {
-        //Here we have just the innerHTML and not DOM structure
-        displayMsg(results[0]);
-    });
-
-    // setTimeout(function () {
-    //     callback();
-    // },2000)
-}
-
-async function start(e){
-    displayMsg(">>> START >>>");
-    setTimeout(function () {
-        // get settings
-        fileNum = document.getElementById('filechoose').value;
-        indexNum = document.getElementById('indexchoose').value;
-
-        var fullName = fileNum+'.txt';
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', chrome.extension.getURL(fullName), true);
-        xhr.onreadystatechange = function()
-        {
-            if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200)
-            {
-                fileContent = xhr.responseText;
-                lines = fileContent.split('\n');
-                // displayMsg(lines[0])
-                // for (var i = 0; i < lines.length; i++){
-                //     var tempResult = trainThis(lines[i]);
-                // }
-                // // lines.forEach(function(item, index){
-                // //     trainThis(item, index);
-                // // });
-                var thisIndex = 0;
-                asyncLoop(lines.length, function(loop) {
-                    someFunction(1, 2, function(result) {
-                        thisIndex =  loop.iteration();
-                        var reValue = trainThis(lines[thisIndex],thisIndex);
-                        // Okay, for cycle could continue
-                        loop.next();
-                    })},
-                    function(){console.log('cycle ended')}
-                );
+    // 2s for the chatbot to think after modify
+    setTimeout(function(){
+        // after that if still thinking, think more 10s
+        // otherwise continue
+        chrome.tabs.executeScript({
+            code: '(' + getBotStatus_script + ')();'
+        }, (results) => {
+            //Here we have just the innerHTML and not DOM structure
+            if (results[0].substring(0,34) == '/static/data/bot/Special/blank.gif'){
+                callback();
+            } else{
+                setTimeout(function () {
+                    callback();
+                },10000);
             }
-        };
-        xhr.send();
-    }, 2000);
+        });
+    }, 3000);
 }
 
-async function trainThis(item, index) {
+function start(e){
+    // get settings
+    fileNum = document.getElementById('filechoose').value;
+    indexNum = document.getElementById('indexchoose').value;
+
+    var fullName = fileNum+'.txt';
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', chrome.extension.getURL(fullName), true);
+    xhr.onreadystatechange = function()
+    {
+        if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200)
+        {
+            fileContent = xhr.responseText;
+            lines = fileContent.split('\n');
+            var thisIndex = 0;
+            displayMsg("Start...");
+            asyncLoop(lines.length, function(loop) {
+                someFunction(1, 2, function(result) {
+                    thisIndex =  loop.iteration();
+                    trainThis(lines[thisIndex],thisIndex);
+                    // Okay, for cycle could continue
+                    loop.next();
+                })},
+                function(){console.log('cycle ended')}
+            );
+        }
+    };
+    xhr.send();
+}
+
+function trainThis(item, index) {
     // train a conversation
     displayMsg(index+1);
     [q,a] = item.split('>>>');
@@ -108,8 +119,7 @@ async function trainThis(item, index) {
     setTimeout(function(){
         chrome.tabs.executeScript({
             code: 'location.href="javascript:ajaxSend(\''+a+'\',[\'modifyChat\',1]); void 0"'
-          });
-        return 'yes';
+        });
     }, 1000);
 }
 
