@@ -81,10 +81,10 @@ function someFunction(a, b, callback) {
 
 function start(e){
     // get settings
-    fileNum = document.getElementById('filechoose').value;
+    fileName = document.getElementById('filechoose').value;
     indexNum = document.getElementById('indexchoose').value;
 
-    var fullName = fileNum+'.txt';
+    var fullName = 'data/'+fileName+'.txt';
     var xhr = new XMLHttpRequest();
     xhr.open('GET', chrome.extension.getURL(fullName), true);
     xhr.onreadystatechange = function()

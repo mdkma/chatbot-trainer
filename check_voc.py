@@ -4,7 +4,7 @@ import re
 import os
 
 startind = '1'
-startaddr = 'data/topics/'+startind
+startaddr = 'chrome_ext/data/topics/'+startind
 
 for filename in os.listdir(startaddr):
     if (filename != '.DS_Store'):
