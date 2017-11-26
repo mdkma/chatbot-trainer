@@ -3,7 +3,7 @@ import sys
 import re
 import os
 
-startind = '1'
+startind = '2'
 startaddr = 'chrome_ext/data/topics/'+startind
 
 for filename in os.listdir(startaddr):
