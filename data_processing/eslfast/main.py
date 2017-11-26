@@ -19,7 +19,7 @@ for filename in os.listdir(startaddr):
             text += item
         else:
             text += '>>>'+item+'\n'
-    text = text[:-1]
+    # note there is \n at the last of the file, but it's correct
 
     if not os.path.exists(saveaddr):
         os.makedirs(saveaddr)

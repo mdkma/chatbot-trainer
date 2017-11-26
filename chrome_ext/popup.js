@@ -16,6 +16,12 @@ function modify(e){
     //     {code:"ajaxSend('it is sunny',['modifyChat',onlychange]);"});
 }
 function like(e){
+    chrome.tabs.executeScript({
+        code: 'location.href="javascript:ajaxSend(0,[\'Liked\',0]); void 0"'
+    });
+    // ajaxSend(0,['Liked',0]);
+}
+function newsession(e){
     // Start new session
     chrome.tabs.query({currentWindow: true, active: true}, function (tab) {
         chrome.tabs.update(tab.id, {url: "http://47.89.11.81/newsession/"});
@@ -23,17 +29,9 @@ function like(e){
     // ajaxSend(0,['Liked',0]);
 }
 function ruminate(e){
-    // Read txt file
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', chrome.extension.getURL('test.txt'), true);
-    xhr.onreadystatechange = function()
-    {
-        if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200)
-        {
-            document.getElementById("display").innerHTML = xhr.responseText;
-        }
-    };
-    xhr.send();
+    chrome.tabs.executeScript({
+        code: 'location.href="javascript:ajaxSend(0, [\'Ruminate\',0]); void 0"'
+    });
     // ajaxSend(0, ['Ruminate',0]);
 }
 
@@ -57,6 +55,13 @@ function getBotStatus_script() {
 //         }
 //     });
 // }
+
+function someFunctionBig(a, b, callback){
+    setTimeout(function(){
+
+    },10000);
+    // 10s
+}
 
 function someFunction(a, b, callback) {
     // Check whether can continue
@@ -83,29 +88,35 @@ function start(e){
     // get settings
     fileName = document.getElementById('filechoose').value;
     indexNum = document.getElementById('indexchoose').value;
+    var trainList = ["greetings1","greetings2","greetings3"];
 
-    var fullName = 'data/'+fileName+'.txt';
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', chrome.extension.getURL(fullName), true);
-    xhr.onreadystatechange = function()
-    {
-        if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200)
+    // TRAIN A FILE
+    newsession();
+    setTimeout(function(){
+        var fullName = 'data/'+fileName+'.txt';
+        displayMsgSmall(fileName);
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', chrome.extension.getURL(fullName), true);
+        xhr.onreadystatechange = function()
         {
-            fileContent = xhr.responseText;
-            lines = fileContent.split('\n');
-            var thisIndex = 0;
-            displayMsg("Start...");
-            asyncLoop(lines.length, function(loop) {
-                someFunction(1, 2, function(result) {
-                    thisIndex =  loop.iteration();
-                    trainThis(lines[thisIndex],thisIndex);
-                    loop.next();
-                })},
-                function(){console.log('cycle ended')}
-            );
-        }
-    };
-    xhr.send();
+            if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200)
+            {
+                fileContent = xhr.responseText;
+                lines = fileContent.split('\n');
+                var thisIndex = 0;
+                displayMsg("Start...");
+                asyncLoop(lines.length, function(loop) {
+                    someFunction(1, 2, function(result) {
+                        thisIndex =  loop.iteration();
+                        trainThis(lines[thisIndex],thisIndex);
+                        loop.next();
+                    })},
+                    function(){console.log('cycle ended')}
+                );
+            }
+        };
+        xhr.send();
+    }, 2000);
 }
 
 function trainThis(item, index) {
@@ -128,6 +139,14 @@ function trainThis(item, index) {
 function displayMsg(msg){
     // Display current progress
     codetext = "document.getElementsByClassName('logo-lg')[0].innerHTML = \'"+msg+"\';"
+    chrome.tabs.executeScript({
+        code: codetext
+    });
+}
+
+function displayMsgSmall(msg){
+    // Display current progress
+    codetext = "document.getElementsByClassName('hidden-xs')[0].innerHTML = \'"+msg+"\';"
     chrome.tabs.executeScript({
         code: codetext
     });
