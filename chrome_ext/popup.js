@@ -99,7 +99,6 @@ function start(e){
                 someFunction(1, 2, function(result) {
                     thisIndex =  loop.iteration();
                     trainThis(lines[thisIndex],thisIndex);
-                    // Okay, for cycle could continue
                     loop.next();
                 })},
                 function(){console.log('cycle ended')}

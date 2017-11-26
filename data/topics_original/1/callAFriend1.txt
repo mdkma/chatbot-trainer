@@ -1,0 +1,23 @@
+A: Hello, may I speak to Alice please?
+
+B: This is she. How's it going?
+
+A: I've been trying to call you all day.
+
+B: Sorry about that. I was cleaning up.
+
+A: It's okay.
+
+B: So what were you calling me about?
+
+A: Oh, I just wanted to see if you wanted to hang out tomorrow.
+
+B: Sure, what did you want to do?
+
+A: Maybe we can go see a movie or something.
+
+B: That sounds like fun. Let's do it.
+
+A: I'll see you tomorrow then.
+
+B: See you then. Goodbye.

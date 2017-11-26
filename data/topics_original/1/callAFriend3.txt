@@ -1,0 +1,23 @@
+A: Is Alice available?
+
+B: You're talking to her.
+
+A: I've called you a hundred times today.
+
+B: I was busy doing something. I apologize.
+
+A: No problem.
+
+B: Did you need something?
+
+A: Do you want to do something tomorrow?
+
+B: Is there somewhere special you wanted to go?
+
+A: How about a movie?
+
+B: A movie sounds good.
+
+A: Call me tomorrow then.
+
+B: I will see you tomorrow.
