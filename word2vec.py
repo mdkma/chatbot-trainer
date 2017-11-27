@@ -202,7 +202,7 @@ with graph.as_default():
   init = tf.global_variables_initializer()
 
 # Step 5: Begin training.
-num_steps = 10000
+num_steps = 100000
 
 with tf.Session(graph=graph) as session:
   # We must initialize all variables before we use them.
@@ -293,7 +293,7 @@ try:
   tsne = TSNE(perplexity=30, n_components=2, init='pca', n_iter=5000, method='exact')
   # plot_only = 500
   print('a')
-  plot_only = 2002
+  plot_only = 1000
   #low_dim_embs = tsne.fit_transform(final_embeddings[:plot_only, :])
   low_dim_embs = tsne.fit_transform(mywords[:plot_only, :])
   #labels = [reverse_dictionary[i] for i in xrange(plot_only)]
