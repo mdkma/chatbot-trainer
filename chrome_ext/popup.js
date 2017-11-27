@@ -78,10 +78,10 @@ function someFunction(a, b, callback) {
             } else{
                 setTimeout(function () {
                     callback();
-                },10000);
+                },5000);
             }
         });
-    }, 3000);
+    }, 2500);
 }
 
 function start(e){
@@ -91,7 +91,7 @@ function start(e){
     var trainList = ["greetings1","greetings2","greetings3"];
 
     // TRAIN A FILE
-    newsession();
+    // newsession();
     setTimeout(function(){
         var fullName = 'data/'+fileName+'.txt';
         displayMsgSmall(fileName);
@@ -116,7 +116,7 @@ function start(e){
             }
         };
         xhr.send();
-    }, 2000);
+    }, 1300);
 }
 
 function trainThis(item, index) {
