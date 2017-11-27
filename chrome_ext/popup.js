@@ -91,7 +91,7 @@ function start(e){
     var trainList = ["greetings1","greetings2","greetings3"];
 
     // TRAIN A FILE
-    // newsession();
+    newsession();
     setTimeout(function(){
         var fullName = 'data/'+fileName+'.txt';
         displayMsgSmall(fileName);
@@ -108,7 +108,11 @@ function start(e){
                 asyncLoop(lines.length, function(loop) {
                     someFunction(1, 2, function(result) {
                         thisIndex =  loop.iteration();
-                        trainThis(lines[thisIndex],thisIndex);
+                        if(lines[thisIndex] == '<sss>'){
+                            newsession();
+                        } else{
+                            trainThis(lines[thisIndex],thisIndex);
+                        }
                         loop.next();
                     })},
                     function(){console.log('cycle ended')}
@@ -189,6 +193,7 @@ function asyncLoop(iterations, func, callback) {
  */
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('start').addEventListener('click',start);
+    document.getElementById('newsession').addEventListener('click',newsession);
     document.getElementById('talk').addEventListener('click',talk);
     document.getElementById('modify').addEventListener('click',modify);
     document.getElementById('like').addEventListener('click',like);

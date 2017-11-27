@@ -1,0 +1,17 @@
+why are you not at school yesterday?>>>I am not really feel well.
+what is wrong with you?>>>my head is upset.
+do you feel better now?>>>I do not really feel too well now.
+do you want anything to make you feel better?>>>no, thank you. I already take some medicine.
+I hope you feel better.>>>thank you.
+<sss>
+what reason do you have to miss school?>>>I am sick.
+how are you sick?>>>I feel bad on my head.
+do it get any better?>>>I am still feel under the weather.
+would you like anything for your head?>>>I take something early today.
+get better.>>>thank you a lot.
+<sss>
+why do not you go to school yesterday?>>>I stay home because I do not feel well.
+what is your problem?>>>my head bother me.
+do you feel any better?>>>I still feel a little sick.
+I am go to the store, would you like any medicine?>>>that is okay.
+I hope you feel better.>>>I would appreciate that.
