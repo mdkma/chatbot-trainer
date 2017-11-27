@@ -1,0 +1,1 @@
+['smallblue', '', ',', '.', '?', '!', 'I', 'amaze', 'reckon', 'sigh', 'embarrass', 'disappoint', 'Beijing', 'centigrade', 'ChatBot', 'eave', 'Hong', 'Kong', 'Mr', 'Mrs', 'New', "n't", 'overcoat', 'PM', 'raincoat', 'TV', 'York', 'wether', 'interva']

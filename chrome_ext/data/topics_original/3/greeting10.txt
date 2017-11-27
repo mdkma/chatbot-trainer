@@ -1,0 +1,23 @@
+A: Hello, how are you doing?
+
+B: Pretty good, and you?
+
+A: I'm doing great.
+
+B: That's great to hear.
+
+A: So how long have you been going to PCC?
+
+B: I've been going here for a couple years now. You?
+
+A: This is my first year.
+
+B: How do you like it so far?
+
+A: It's all right.
+
+B: You don't like it?
+
+A: I'll like it better once I finish my GE.
+
+B: That's exactly how I used to feel.
