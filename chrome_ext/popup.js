@@ -130,7 +130,7 @@ function trainThis(item, index) {
         chrome.tabs.executeScript({
             code: 'location.href="javascript:ajaxSend(\''+a+'\',[\'modifyChat\',1]); void 0"'
         });
-    }, 1000);
+    }, 1400);
 }
 
 /*
