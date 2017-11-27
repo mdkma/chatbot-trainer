@@ -5,6 +5,7 @@ master
 .
 ?
 !
+I
 is
 are
 am
@@ -31,7 +32,6 @@ this
 but
 on
 pause
-I
 unclear
 for
 think
