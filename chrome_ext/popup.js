@@ -81,7 +81,7 @@ function someFunction(a, b, callback) {
                 },5000);
             }
         });
-    }, 4000);
+    }, 5000);
 }
 
 function start(e){
@@ -126,15 +126,21 @@ function start(e){
 function trainThis(item, index) {
     // train a conversation
     displayMsg(index+1);
+    // input message
     [q,a] = item.split('>>>');
     chrome.tabs.executeScript({
         code: 'location.href="javascript:ajaxSend(\''+q+'\', [\'msgInput\',0]); void 0"'
       });
+    // modify chat
     setTimeout(function(){
         chrome.tabs.executeScript({
             code: 'location.href="javascript:ajaxSend(\''+a+'\',[\'modifyChat\',1]); void 0"'
         });
     }, 2400);
+    // // like revised message
+    setTimeout(function(){
+        like();
+    }, 4000);
 }
 
 /*
