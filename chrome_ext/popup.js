@@ -81,7 +81,7 @@ function someFunction(a, b, callback) {
                 },5000);
             }
         });
-    }, 2500);
+    }, 4000);
 }
 
 function start(e){
@@ -134,7 +134,7 @@ function trainThis(item, index) {
         chrome.tabs.executeScript({
             code: 'location.href="javascript:ajaxSend(\''+a+'\',[\'modifyChat\',1]); void 0"'
         });
-    }, 1400);
+    }, 2400);
 }
 
 /*
