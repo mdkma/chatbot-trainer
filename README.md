@@ -23,7 +23,9 @@ Details will be explained below.
 
 Run:
 
-```python extract_voc.py```
+```
+python extract_voc.py
+```
 
 ## Vocabulary analysis
 
@@ -35,7 +37,9 @@ cd word2vec
 python word2vec.py
 ```
 
-This program will download training data from http://mattmahoney.net/dc/text8 and train the `word2vec` network to obtain word embedding vectors for common words. Then you can get a plot of words in `voc.txt` to see their relationships.
+This TensorFlow program will download training data from http://mattmahoney.net/dc/text8 and train the `word2vec` network to obtain word embedding vectors for 50000 common words. Then you can get a plot of words in `voc.txt` to see their relationships. A sample plot can be found at `/word2vec/tsne_1000.png`.
+
+![Relationships of first 1000 words in voc.txt](/word2vec/tsne_1000.png)
 
 ## Datasets
 
@@ -64,10 +68,24 @@ to see the words that not in `voc.txt`.
 
 ## Chrome Extension
 
+* Load the unpacked extension in folder `/chrome_ext` to your Chrome follows [official guide](https://developer.chrome.com/extensions/getstarted#unpacked)
+* Choose training file
+* Click start
+
+The extension will start new session when meet `<sss>` in training document, Q&A should be formatted as `$QUESTION$>>>$ANSWER$`. A sample can be found at: `/chrome_ext/data/topics/3/greeting`.
+
+A demo video: https://youtu.be/flt2GLLF8so
+
+![UI of the Chrome extension](/img/chrome_extension_ui.png)
+
 ## Authors
 
 Derek Mingyu MA
 hi@derek.ma | [derek.ma](https://derek.ma)
 
 ## Acknowledgements
+
+Most of the `word2vec` implementation in TensorFlow is borrowed from https://github.com/tensorflow/tensorflow/blob/r1.4/tensorflow/examples/tutorials/word2vec/word2vec_basic.py.
+
+The paper of `word2vec` can be found at: https://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf
 
