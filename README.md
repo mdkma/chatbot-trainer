@@ -76,9 +76,9 @@ The extension will start new session when meet `<sss>` in training document, Q&A
 
 A demo video: https://youtu.be/flt2GLLF8so
 
-![UI of the Chrome extension](/img/chrome_extension_ui.png)
+![UI of the Chrome extension](/img/chrome_ext_ui.png)
 
-## Authors
+## Author
 
 Derek Mingyu MA
 hi@derek.ma | [derek.ma](https://derek.ma)
