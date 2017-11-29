@@ -3,7 +3,7 @@ import re
 import os
 from bs4 import BeautifulSoup
 
-filename = 'voc.html'
+filename = 'chatbot_metadata/voc.html'
 doc = open(filename).read()
 
 soup = BeautifulSoup(doc)
