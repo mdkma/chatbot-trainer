@@ -76,6 +76,13 @@ to see the words that not in `voc.txt`.
 * Choose training file
 * Click start
 
+What will the extension do during training?
+
+1. Input the `$QUESTION$`
+2. Modify the response to `$ANSWER$` and change
+3. Like the revised response
+4. Train next one
+
 The extension will start new session when meet `<sss>` in training document, Q&A should be formatted as `$QUESTION$>>>$ANSWER$`. Sample training paragraph:
 
 ```
@@ -95,8 +102,7 @@ I can offer you drink.>>>thank you!
 
 ## Author
 
-Derek Mingyu MA
-hi@derek.ma | [derek.ma](https://derek.ma)
+Derek Mingyu MA, [derek.ma](https://derek.ma), hi@derek.ma
 
 ## Acknowledgements
 
