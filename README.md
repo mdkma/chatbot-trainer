@@ -2,6 +2,10 @@
 
 A chrome extension and related code for training the chatbot LightBlue.
 
+A demo video: https://youtu.be/flt2GLLF8so
+
+![UI of the Chrome extension](/img/chrome_ext_ui.png)
+
 ## Workflow
 
 The workflow of the whole set of code is:
@@ -72,11 +76,22 @@ to see the words that not in `voc.txt`.
 * Choose training file
 * Click start
 
-The extension will start new session when meet `<sss>` in training document, Q&A should be formatted as `$QUESTION$>>>$ANSWER$`. A sample can be found at: `/chrome_ext/data/topics/3/greeting`.
+The extension will start new session when meet `<sss>` in training document, Q&A should be formatted as `$QUESTION$>>>$ANSWER$`. Sample training paragraph:
 
-A demo video: https://youtu.be/flt2GLLF8so
-
-![UI of the Chrome extension](/img/chrome_ext_ui.png)
+```
+welcome, smallblue, come on in!>>>hi, derek! what a nice home!
+we enjoy it too!>>>how long have you live here?
+about four year now.>>>well, it is very beautiful.
+smallblue, have a seat and I will get us something to drink.>>>good! I am really hot. you know it really is hot outside!
+I have different drink.>>>thank you!
+<sss>
+smallblue, welcome to my home!>>>it is so nice to see you. what a wonderful home!
+we really like stay in this neighborhood.>>>how long have you have this house?
+we just move here last year.>>>it is a beautiful home.
+I get some drink for us in the kitchen.>>>that would be wonderful. it is really hot out.
+I can offer you drink.>>>thank you!
+<sss>
+```
 
 ## Author
 
